@@ -18,8 +18,11 @@ public class UploadImage {
         System.out.println(file.getSize());
 
         String name = Long.toString(new Date().getTime()/1000) + "." + FilenameUtils.getExtension(file.getOriginalFilename());
-
-        String path_Directory = "D:/Desktop/Cloud/Projet/WebService/ws-enchere/src/main/resources/static/images";
+        String absolute = System.getProperty("user.dir");
+        String change = absolute.replace("\\", "/");
+        change = change + "/src/main/resources/static/images";
+        System.out.println("Location : " + change);
+        String path_Directory = change;
         Files.copy(file.getInputStream(), Paths.get(path_Directory + File.separator + name),
                 StandardCopyOption.REPLACE_EXISTING);
         System.out.println("Succeessfully Image is uploaded");
