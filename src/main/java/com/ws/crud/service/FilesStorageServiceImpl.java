@@ -37,7 +37,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
         change = change + "/src/main/resources/static/images";
         System.out.println("Location : " + change);
         String path_Directory = change;
-      Files.copy(file.getInputStream(), Paths.get(path_Directory + File.separator + filename), StandardCopyOption.REPLACE_EXISTING);
+      Files.copy(file.getInputStream(), Paths.get(filename), StandardCopyOption.REPLACE_EXISTING);
     } catch (Exception e) {
       throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
     }
