@@ -43,8 +43,8 @@ public class WsAvionApplication implements CommandLineRunner {
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
 					.antMatchers(HttpMethod.PUT, "/**").permitAll()
-					.antMatchers(HttpMethod.POST, "/**").permitAll()
-					.antMatchers(HttpMethod.GET, "/**").permitAll().anyRequest()
+					.antMatchers(HttpMethod.GET, "/**").permitAll()
+					.antMatchers(HttpMethod.POST, "/**").permitAll().anyRequest()
 					.authenticated();
 		}
 	}
