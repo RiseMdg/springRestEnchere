@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
@@ -49,8 +50,7 @@ public class FilesController {
   // save enchere
 
   @PostMapping("/encheress")
-  public ResponseEntity<ResponseMessage> uploadFiles(@RequestParam("enchere") String model,
-      @RequestParam("files") MultipartFile[] files) throws JsonMappingException, JsonProcessingException {
+  public ResponseEntity<Enchere> uploadFiles(@RequestBody String model) throws JsonMappingException, JsonProcessingException {
     String message = "";
     ObjectMapper mapper = new ObjectMapper();
     AjouterEnchere ajouterEnchere = mapper.readValue(model, AjouterEnchere.class);
@@ -65,26 +65,26 @@ public class FilesController {
     System.out.println(ajouterEnchere.getCategory_id());
     System.out.println(ajouterEnchere.getUser_id());
     Enchere en = enchereRepository.save(enchere);
-    try {
-      List<String> fileNames = new ArrayList<>();
+    // try {
+    //   List<String> fileNames = new ArrayList<>();
 
-      Arrays.asList(files).stream().forEach(file -> {
-        String filenames = Long.toString(new Date().getTime() / 1000) + "."
-            + FilenameUtils.getExtension(file.getOriginalFilename());
-        // storageService.save(file, filenames);
-        Image image = new Image(filenames, (int) en.getId());
-        fileNames.add(filenames);
-        imageRepository.save(image);
-      });
+    //   Arrays.asList(files).stream().forEach(file -> {
+    //     String filenames = Long.toString(new Date().getTime() / 1000) + "."
+    //         + FilenameUtils.getExtension(file.getOriginalFilename());
+    //     // storageService.save(file, filenames);
+    //     Image image = new Image(filenames, (int) en.getId());
+    //     fileNames.add(filenames);
+    //     imageRepository.save(image);
+    //   });
 
-      message = "Uploaded the files successfully: " + fileNames;
-      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
-    } catch (Exception e) {
-      message = "Fail to upload files!";
-      System.out.println(e);
-      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+    //   message = "Uploaded the files successfully: " + fileNames;
+    //   return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+    // } catch (Exception e) {
+    //   message = "Fail to upload files!";
+      // System.out.println(e);
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(en);
     }
-  }
+  
 
   @GetMapping("/files")
   public ResponseEntity<List<FileInfo>> getListFiles() {
