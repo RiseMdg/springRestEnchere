@@ -18,7 +18,7 @@ import com.ws.crud.service.FilesStorageService;
 
 @SpringBootApplication
 @EnableScheduling
-public class WsAvionApplication implements CommandLineRunner {
+public class WsAvionApplication {
 
 	@Resource
   	FilesStorageService storageService;
@@ -26,12 +26,6 @@ public class WsAvionApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(WsAvionApplication.class, args);
 	}
-
-	@Override
-  	public void run(String... arg) throws Exception {
-    storageService.deleteAll();
-    storageService.init();
-  }
 
 	@EnableWebSecurity
 	@Configuration
