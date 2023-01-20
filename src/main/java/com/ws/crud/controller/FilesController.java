@@ -71,7 +71,7 @@ public class FilesController {
       Arrays.asList(files).stream().forEach(file -> {
         String filenames = Long.toString(new Date().getTime() / 1000) + "."
             + FilenameUtils.getExtension(file.getOriginalFilename());
-        storageService.save(file, filenames);
+        // storageService.save(file, filenames);
         Image image = new Image(filenames, (int) en.getId());
         fileNames.add(filenames);
         imageRepository.save(image);
