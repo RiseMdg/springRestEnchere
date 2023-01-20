@@ -37,16 +37,14 @@ public class WsAvionApplication implements CommandLineRunner {
 	@Configuration
 	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-			// @Override
-			// protected void configure(HttpSecurity http) throws Exception {
-			// 	http.cors().and().csrf().disable()
-			// 			.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-			// 			.authorizeRequests()
-			// 			.antMatchers(HttpMethod.PUT, "/**").permitAll()
-			// 			.antMatchers(HttpMethod.GET, "/**").permitAll()
-			// 			.antMatchers(HttpMethod.POST, "/**").permitAll().anyRequest()
-			// 			.authenticated();
-			// }
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+			http.cors().and().csrf().disable()
+					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+					.authorizeRequests()
+					.antMatchers(HttpMethod.POST, "/enchere/login").permitAll().anyRequest()
+					.authenticated();
+		}
 	}
 
 }
